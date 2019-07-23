@@ -1,18 +1,18 @@
 NAME       := locust
 IMAGE_NAME := renaudhager/locust
 
-ifndef DRONE_TAG
-  DRONE_TAG := $(shell git describe --abbrev=0 --tags --exact-match 2>/dev/null || git rev-parse --short HEAD)
+ifndef VERSION
+  VERSION := $(shell git describe --abbrev=0 --tags --exact-match 2>/dev/null || git rev-parse --short HEAD)
 endif
 
 .PHONY: build
 build:
 	docker build \
-	--tag="$(IMAGE_NAME):$(DRONE_TAG)" .
+	--tag="$(IMAGE_NAME):$(VERSION)" .
 
 .PHONY: tag
 tag:
-	docker tag "$(IMAGE_NAME):$(DRONE_TAG)" \
+	docker tag "$(IMAGE_NAME):$(VERSION)" \
 	"$(IMAGE_NAME):latest"
 
 .PHONY: push
