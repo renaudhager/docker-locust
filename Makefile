@@ -17,4 +17,5 @@ tag:
 
 .PHONY: push
 push:
+	docker push "$(IMAGE_NAME):$(VERSION)"
 	docker push "$(IMAGE_NAME):latest"
