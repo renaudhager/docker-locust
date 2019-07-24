@@ -40,14 +40,14 @@ class DockerHttpLocust(HttpLocust):
         Function to send metrics to Datadog when a request is successful
         """
         tags_response_time = []
-        tags_response_time.append('success')
+        tags_response_time.append('staus:success')
         tags_response_time.append('path:' + name)
         tags_response_time.append('host:' + self.host)
 
-        statsd.gauge("locust.response_time", response_time, tags_response_time)
+        statsd.histogram("locust.response_time", response_time, tags=tags_response_time)
 
         tags_total_requests = []
-        tags_total_requests.append('success')
+        tags_total_requests.append('staus:success')
         tags_total_requests.append('path:' + name)
         tags_total_requests.append('host:' + self.host)
 
@@ -58,13 +58,13 @@ class DockerHttpLocust(HttpLocust):
         Function to send metrics to Datadog when a request is failed
         """
         tags_response_time = []
-        tags_response_time.append('failed')
+        tags_response_time.append('status:fail')
         tags_response_time.append('path:' + name)
         tags_response_time.append('host:' + self.host)
-        statsd.gauge("locust.response_time", response_time, tags_response_time)
+        statsd.gauge("locust.response_time", response_time, tags=tags_response_time)
 
         tags_total_requests = []
-        tags_total_requests.append('failed')
+        tags_total_requests.append('status:fail')
         tags_total_requests.append('path:' + name)
         tags_total_requests.append('host:' + self.host)
-        statsd.increment("locust.total_requests",   tags=tags_total_requests)
+        statsd.increment("locust.total_requests", tags=tags_total_requests)
