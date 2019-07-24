@@ -1,8 +1,9 @@
 FROM python:3.5-slim
 
 ENV CLIENTS=100 \
-    HATCHING_RATE=10 \
-    OPTIONS="--no-web --print-stats"
+  DATADOG_ENABLE=false \
+  HATCHING_RATE=10 \
+  OPTIONS="--no-web --print-stats"
 
 COPY requirements.txt /tmp/
 
