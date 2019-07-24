@@ -40,14 +40,14 @@ class DockerHttpLocust(HttpLocust):
         Function to send metrics to Datadog when a request is successful
         """
         tags_response_time = []
-        tags_response_time.append('staus:success')
+        tags_response_time.append('status:success')
         tags_response_time.append('path:' + name)
         tags_response_time.append('host:' + self.host)
 
         statsd.histogram("locust.response_time", response_time, tags=tags_response_time)
 
         tags_total_requests = []
-        tags_total_requests.append('staus:success')
+        tags_total_requests.append('status:success')
         tags_total_requests.append('path:' + name)
         tags_total_requests.append('host:' + self.host)
 
